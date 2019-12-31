@@ -1,5 +1,102 @@
 # java-chess
 
+- 체스 규칙
+
+- [도메인 설계](#도메인 설계)
+
+- front 요구사항
+- Backend API 요구사항
+
+
+
+# 체스 규칙
+
+### 말 이동 
+
+- 킹 - 모든 방향 1칸
+- 룩 - 직선 
+- 비숍 - 대각선 
+- 퀸 - 직선, 대각선 
+- 나이트 - L 형태 (다른 말을 지나칠 수 있다)
+- 폰 
+  - 처음 이동은 앞으로 1~ 2칸, 이후 1칸 (후진 불가능)
+  - 공격은 대각선 1칸만 가능
+
+
+
+### 점수 계산
+
+- queen은 9점, rook은 5점, bishop은 3점, knight는 2.5점
+- pawn의 기본 점수는 1점이다. 하지만 같은 세로줄에 같은 색의 폰이 있는 경우 1점이 아닌 0.5점을 준다.
+
+- king은 잡히는 경우 경기가 끝나기 때문에 점수가 없다.
+
+
+
+# 도메인 설계
+
+source는 현재 위치(position)을 뜻한다.
+
+target은 대상 위치(position)을 뜻한다.
+
+### ChessGame (나중에 설계)
+
+- [ ] ChessBoard
+- [ ] turn
+- [ ] scoreWhite
+- [ ] scorreBlack
+- [ ] gameStatus (battle or end)
+
+
+
+### ChessBoard (나중에 설계)
+
+- [ ] Map<Position, Piece> positionsOfPieces
+
+
+
+### Position (enum)
+
+- [ ] 상태 - X, Y
+- [ ] target을 받으면 가로인지 확인
+- [ ] target을 받으면 세로인지 확인
+- [ ] target을 받으면 대각선인지 확인
+
+
+
+### Direction (enum)
+
+체스 말들이 이동할 수 있는 방향
+
+- [ ] 전, 후, 좌, 우
+- [ ] 대각선
+- [ ] L 방향 (나이트)
+
+
+
+### Piece (enum)
+
+- [ ] 상태 - Color, Rule 
+- [ ] source, target을 받으면 이동 가능한지 확인
+- [ ] source, target을 받으면 공격 가능한지 확인
+- [ ] source를 받으면 이동, 공격 가능한 포지션 리스트 반환 
+- [ ] White인지 확인
+- [ ] Black인지 확인
+
+
+
+### Rule
+
+- [ ] source, target을 받으면 이동 가능한지 확인
+- [ ] source, target을 받으면 공격 가능한지 확인
+- [ ] source를 받으면 이동, 공격 가능한 포지션 리스트 반환
+
+
+
+
+
+
+
 ## front 요구사항
 - 게임을 시작하면 체스판을 초기화한다.
 - 현재 움직일 차례인 체스 말인 경우 마우스를 올렸을 때 말이 위치판 판의 색을 바꿔준다.
@@ -20,7 +117,7 @@
 GET /api/initialized-board HTTP/1.1
 
 ```
-    
+
 ```
 응답: 
 200 OK
